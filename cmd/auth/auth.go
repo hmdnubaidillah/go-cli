@@ -1,16 +1,10 @@
 package auth
 
 import (
+	pkg "cli/pkg"
 	"encoding/base64"
 	"fmt"
 )
-
-type User struct {
-	Id                 int
-	Username, Password string
-}
-
-var UserCredentials = map[string]User{}
 
 func HandleLogin() bool {
 
@@ -26,7 +20,7 @@ func HandleLogin() bool {
 		fmt.Print("Enter password : ")
 		fmt.Scan(&password)
 
-		if user, isUserExist := UserCredentials[username]; isUserExist {
+		if user, isUserExist := pkg.UserCredentials[username]; isUserExist {
 
 			encodedPassword, err := base64.StdEncoding.DecodeString(user.Password)
 
@@ -61,13 +55,13 @@ func HandleRegister() {
 		fmt.Print("Enter password :")
 		fmt.Scan(&password)
 
-		if _, isUserExist := UserCredentials[username]; isUserExist {
+		if _, isUserExist := pkg.UserCredentials[username]; isUserExist {
 			fmt.Printf("username %s already exist\n", username)
 
 		} else {
 			// encode password
 			encodedPass := base64.StdEncoding.EncodeToString([]byte(password))
-			UserCredentials[username] = User{Username: username, Password: encodedPass}
+			pkg.UserCredentials[username] = pkg.User{Username: username, Password: encodedPass}
 
 			fmt.Println()
 			fmt.Println("User created!")

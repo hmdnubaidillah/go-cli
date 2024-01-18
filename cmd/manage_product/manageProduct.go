@@ -1,24 +1,17 @@
 package manageproduct
 
 import (
-	helper "cli/helper"
-
+	helper "cli/cmd/helper"
+	pkg "cli/pkg"
 	"fmt"
 	"strings"
 )
-
-type Product struct {
-	Name, Category   string
-	Id, Stock, Price int
-}
-
-var Products = []Product{}
 
 func SeeProducts() {
 	fmt.Println()
 	fmt.Println("==========Products==========")
 
-	for _, v := range Products {
+	for _, v := range pkg.Products {
 		fmt.Printf("Id : %d\n", v.Id)
 		fmt.Printf("Name : %s\n", v.Name)
 		fmt.Printf("Category : %s\n", v.Category)
@@ -45,7 +38,7 @@ func AddProduct() {
 
 	isProductExist := false
 
-	for _, v := range Products {
+	for _, v := range pkg.Products {
 		if v.Name == name {
 			isProductExist = true
 		}
@@ -69,17 +62,17 @@ func AddProduct() {
 
 			if errPrice == nil && errStock == nil {
 
-				idOfLastIndexProducts := Products[len(Products)-1]
+				idOfLastIndexProducts := pkg.Products[len(pkg.Products)-1]
 
 				idOfLastIndexProducts.Id++
-				newProduct := Product{
+				newProduct := pkg.Product{
 					Id:       idOfLastIndexProducts.Id,
 					Name:     name,
 					Category: category,
 					Stock:    stock,
 					Price:    price,
 				}
-				Products = append(Products, newProduct)
+				pkg.Products = append(pkg.Products, newProduct)
 
 			} else {
 				fmt.Println("Error", errPrice.Error(), errStock.Error())
@@ -110,7 +103,7 @@ func DeleteProduct() {
 
 		if strings.ToLower(deleteConfirmation) == "y" {
 
-			for i, v := range Products {
+			for i, v := range pkg.Products {
 
 				if productNumber == i {
 					fmt.Println(v)
@@ -142,7 +135,7 @@ func EditProduct() {
 	productNumber, err := helper.ReadInt()
 
 	if err == nil {
-		for i := 0; i < len(Products); i++ {
+		for i := 0; i < len(pkg.Products); i++ {
 
 			if productNumber-1 == i {
 
@@ -159,13 +152,13 @@ func EditProduct() {
 
 					switch editChoice {
 					case 1:
-						editName(Products[i].Name, i)
+						editName(pkg.Products[i].Name, i)
 					case 2:
-						editCategory(Products[i].Category, i)
+						editCategory(pkg.Products[i].Category, i)
 					case 3:
-						editStock(Products[i].Stock, i)
+						editStock(pkg.Products[i].Stock, i)
 					case 4:
-						editPrice(Products[i].Price, i)
+						editPrice(pkg.Products[i].Price, i)
 					default:
 						fmt.Println("Please enter a valid input")
 					}
@@ -180,7 +173,7 @@ func editName(name string, index int) {
 
 	fmt.Print("Enter new name : ")
 	newName := helper.ReadString()
-	Products[index].Name = newName
+	pkg.Products[index].Name = newName
 }
 
 func editCategory(category string, index int) {
@@ -188,7 +181,7 @@ func editCategory(category string, index int) {
 
 	fmt.Print("Enter new category : ")
 	newCategory := helper.ReadString()
-	Products[index].Category = newCategory
+	pkg.Products[index].Category = newCategory
 
 }
 
@@ -199,7 +192,7 @@ func editStock(stock int, index int) {
 	newStock, err := helper.ReadInt()
 
 	if err == nil {
-		Products[index].Stock = newStock
+		pkg.Products[index].Stock = newStock
 
 	} else {
 		fmt.Println("Please enter a valid input", err.Error())
@@ -214,7 +207,7 @@ func editPrice(price int, index int) {
 	newPrice, err := helper.ReadInt()
 
 	if err == nil {
-		Products[index].Price = newPrice
+		pkg.Products[index].Price = newPrice
 
 	} else {
 		fmt.Println("Please enter a valid input", err.Error())

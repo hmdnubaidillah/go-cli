@@ -1,7 +1,7 @@
 package mainmenu
 
 import (
-	manageproduct "cli/manage_product"
+	manageproduct "cli/cmd/manage_product"
 	"fmt"
 )
 

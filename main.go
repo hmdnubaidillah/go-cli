@@ -1,9 +1,9 @@
 package main
 
 import (
-	auth "cli/auth"
-	mainmenu "cli/main_menu"
-	manageproduct "cli/manage_product"
+	auth "cli/cmd/auth"
+	mainmenu "cli/cmd/main_menu"
+	"cli/pkg"
 	"encoding/base64"
 	"fmt"
 )
@@ -14,16 +14,16 @@ type Person struct {
 }
 
 func setInitialCredentials() {
-	auth.UserCredentials["kevin"] = auth.User{Username: "kevin", Password: base64.StdEncoding.EncodeToString([]byte("kevin123"))}
-	auth.UserCredentials["john"] = auth.User{Username: "john", Password: base64.StdEncoding.EncodeToString([]byte("john123"))}
+	pkg.UserCredentials["kevin"] = pkg.User{Username: "kevin", Password: base64.StdEncoding.EncodeToString([]byte("kevin123"))}
+	pkg.UserCredentials["john"] = pkg.User{Username: "john", Password: base64.StdEncoding.EncodeToString([]byte("john123"))}
 }
 
 func setInitialProducts() {
 
-	ID := len(manageproduct.Products)
+	ID := len(pkg.Products)
 
 	ID++
-	newProduct1 := manageproduct.Product{
+	newProduct1 := pkg.Product{
 		Id:       ID,
 		Name:     "Mouse Apik",
 		Category: "Mouse",
@@ -32,7 +32,7 @@ func setInitialProducts() {
 	}
 
 	ID++
-	newProduct2 := manageproduct.Product{
+	newProduct2 := pkg.Product{
 		Id:       ID,
 		Name:     "Keyboard Apik",
 		Category: "Keyboard",
@@ -41,7 +41,7 @@ func setInitialProducts() {
 	}
 
 	ID++
-	newProduct3 := manageproduct.Product{
+	newProduct3 := pkg.Product{
 		Id:       ID,
 		Name:     "Monitor Apik",
 		Category: "Monitor",
@@ -49,37 +49,12 @@ func setInitialProducts() {
 		Price:    1_000_000,
 	}
 
-	manageproduct.Products = append(manageproduct.Products, newProduct1)
-	manageproduct.Products = append(manageproduct.Products, newProduct2)
-	manageproduct.Products = append(manageproduct.Products, newProduct3)
+	pkg.Products = append(pkg.Products, newProduct1)
+	pkg.Products = append(pkg.Products, newProduct2)
+	pkg.Products = append(pkg.Products, newProduct3)
 }
 
 func main() {
-	// ID := 0
-
-	// persons := []Person{}
-
-	// ID++
-	// person1 := Person{Id: ID, Name: "Kevin"}
-
-	// ID++
-	// person2 := Person{Id: ID, Name: "Johan"}
-
-	// ID++
-	// person3 := Person{Id: ID, Name: "Ahmed"}
-
-	// persons = append(persons, person1)
-	// persons = append(persons, person2)
-	// persons = append(persons, person3)
-
-	// // for i, p := range persons {
-	// // 	fmt.Println(i, p)
-	// // 	fmt.Println(p.Name == "Kevin")
-	// // }
-
-	// fmt.Println(persons[len(persons)-1])
-
-	//==========================================
 	setInitialCredentials()
 	setInitialProducts()
 
