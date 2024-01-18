@@ -20,10 +20,10 @@ func HandleLogin() bool {
 		var username string
 		var password string
 
-		fmt.Print("Enter username :")
+		fmt.Print("Enter username : ")
 		fmt.Scan(&username)
 
-		fmt.Print("Enter password :")
+		fmt.Print("Enter password : ")
 		fmt.Scan(&password)
 
 		if user, isUserExist := UserCredentials[username]; isUserExist {

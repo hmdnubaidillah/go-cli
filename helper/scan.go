@@ -6,6 +6,11 @@ import (
 	"strconv"
 )
 
+func Scan() {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+}
+
 func ReadString() string {
 	scanner := bufio.NewScanner(os.Stdin)
 	if scanner.Scan() {

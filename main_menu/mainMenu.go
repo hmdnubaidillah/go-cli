@@ -14,6 +14,7 @@ func HandleShowMainMenu() {
 		fmt.Println("3. Remove Product")
 		fmt.Println("4. Edit Product")
 		fmt.Println("0. Back")
+		fmt.Println()
 
 		var command int
 		fmt.Print("Enter command : ")

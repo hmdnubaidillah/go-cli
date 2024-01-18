@@ -1,10 +1,9 @@
 package manageproduct
 
 import (
-	"bufio"
-	"cli/helper"
+	helper "cli/helper"
+
 	"fmt"
-	"os"
 	"strings"
 )
 
@@ -30,8 +29,7 @@ func SeeProducts() {
 }
 
 func AddProduct() {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
+	helper.Scan()
 
 	temp := []string{}
 
@@ -97,8 +95,7 @@ func AddProduct() {
 }
 
 func DeleteProduct() {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
+	helper.Scan()
 
 	fmt.Println("==========Delete Product==========")
 	SeeProducts()
@@ -134,5 +131,93 @@ func DeleteProduct() {
 }
 
 func EditProduct() {
+	helper.Scan()
+
+	fmt.Println()
+	fmt.Println("=========Edit Product==========")
+	SeeProducts()
+	fmt.Println("select product that'll be edited")
+
+	fmt.Print("Enter number : ")
+	productNumber, err := helper.ReadInt()
+
+	if err == nil {
+		for i := 0; i < len(Products); i++ {
+
+			if productNumber-1 == i {
+
+				fmt.Println()
+				fmt.Println("1. Edit name")
+				fmt.Println("2. Edit category")
+				fmt.Println("3. Edit stock")
+				fmt.Println("4. Edit price")
+				fmt.Println()
+				fmt.Println("Enter number : ")
+				editChoice, err := helper.ReadInt()
+
+				if err == nil {
+
+					switch editChoice {
+					case 1:
+						editName(Products[i].Name, i)
+					case 2:
+						editCategory(Products[i].Category, i)
+					case 3:
+						editStock(Products[i].Stock, i)
+					case 4:
+						editPrice(Products[i].Price, i)
+					default:
+						fmt.Println("Please enter a valid input")
+					}
+				}
+			}
+		}
+	}
+}
+
+func editName(name string, index int) {
+	helper.Scan()
+
+	fmt.Print("Enter new name : ")
+	newName := helper.ReadString()
+	Products[index].Name = newName
+}
+
+func editCategory(category string, index int) {
+	helper.Scan()
+
+	fmt.Print("Enter new category : ")
+	newCategory := helper.ReadString()
+	Products[index].Category = newCategory
+
+}
+
+func editStock(stock int, index int) {
+	helper.Scan()
+
+	fmt.Print("Enter new stock : ")
+	newStock, err := helper.ReadInt()
+
+	if err == nil {
+		Products[index].Stock = newStock
+
+	} else {
+		fmt.Println("Please enter a valid input", err.Error())
+	}
+
+}
+
+func editPrice(price int, index int) {
+	helper.Scan()
+
+	fmt.Print("Enter new price : ")
+	newPrice, err := helper.ReadInt()
+
+	if err == nil {
+		Products[index].Price = newPrice
+
+	} else {
+		fmt.Println("Please enter a valid input", err.Error())
+	}
 
 }
